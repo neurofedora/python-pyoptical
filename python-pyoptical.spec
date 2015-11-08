@@ -1,6 +1,4 @@
 %global modname pyoptical
-%global commit 4cdf06ae9679b5ea87450fcbe6a977bc9070531f
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-pyoptical
 Version:        0.4
@@ -8,11 +6,11 @@ Release:        1%{?dist}
 Summary:        Pure python interface to OptiCA
 License:        MIT
 URL:            https://github.com/esc/pyoptical
-Source0:	https://github.com/esc/pyoptical/archive/%{version}.tar.gz
+Source0:	https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
-Pure python interface to CRS OptiCAL
+Pure python interface to CRS OptiCAL.
 
 %package -n python2-%{modname}
 Summary:        %{summary}
@@ -20,7 +18,7 @@ Summary:        %{summary}
 BuildRequires:  python2-devel
 BuildRequires:  pyserial
 %description -n python2-%{modname}
-Pure python interface to CRS OptiCAL
+Pure python interface to CRS OptiCAL.
 
 Python 2 version.
 
@@ -31,7 +29,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pyserial
 %description -n python3-%{modname}
-Pure python interface to CRS OptiCAL
+Pure python interface to CRS OptiCAL.
 
 Python 3 version.
 
@@ -47,15 +45,41 @@ Python 3 version.
 %py2_install
 %py3_install
 
+# Rename binaries
+pushd %{buildroot}%{_bindir}
+  for mod in pyoptical
+  do
+    mv $mod python2-$mod
+
+    sed -i '1s|^.*$|#!/usr/bin/env %{__python2}|' python2-$mod
+    for i in $mod $mod-2 $mod-%{python2_version}
+    do
+      ln -s python2-$mod $i
+    done
+
+    cp python2-$mod python3-$mod
+    sed -i '1s|^.*$|#!/usr/bin/env %{__python3}|' python3-$mod
+
+    for i in $mod-3 $mod-%{python3_version}
+    do
+      ln -s python3-$mod $i
+    done
+  done
+popd
 
 %files -n python2-%{modname}
 %doc README.rst
-%{_bindir}/%{modname}
+%{_bindir}/pyoptical
+%{_bindir}/pyoptical-2
+%{_bindir}/pyoptical-2.7
+%{_bindir}/python2-pyoptical
 %{python2_sitelib}/%{modname}*
 
 %files -n python3-%{modname}
 %doc README.rst
-%{_bindir}/%{modname}
+%{_bindir}/pyoptical-3
+%{_bindir}/pyoptical-3.4
+%{_bindir}/python3-pyoptical
 %{python3_sitelib}/%{modname}*
 %{python3_sitelib}/__pycache__/%{modname}.*
 
