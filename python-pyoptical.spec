@@ -9,7 +9,7 @@ Release:        1%{?dist}
 Summary:        Pure python interface to OptiCAL
 License:        MIT
 URL:            https://github.com/esc/pyoptical
-Source0:	https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
+Source0:        https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
