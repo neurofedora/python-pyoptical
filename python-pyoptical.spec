@@ -3,14 +3,14 @@
 Name:           python-pyoptical
 Version:        0.4
 Release:        1%{?dist}
-Summary:        Pure python interface to OptiCAL
+Summary:        Pure python interface to OptiCAL.
 License:        MIT
 URL:            https://github.com/esc/pyoptical
 Source0:	https://github.com/esc/pyoptical/archive/%{version}/%{modname}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
-Pure python interface to CRS OptiCAL.
+%{summary}
 
 %package -n python2-%{modname}
 Summary:        %{summary}
@@ -19,7 +19,7 @@ BuildRequires:  python2-devel
 BuildRequires:  pyserial
 Requires: 	pyserial
 %description -n python2-%{modname}
-Pure python interface to CRS OptiCAL.
+%{summary}
 
 Python 2 version.
 
@@ -31,7 +31,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pyserial
 Requires:  	python3-pyserial
 %description -n python3-%{modname}
-Pure python interface to CRS OptiCAL.
+%{summary}
 
 Python 3 version.
 
