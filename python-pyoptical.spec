@@ -41,6 +41,7 @@ Python 3 version.
 
 %prep
 %autosetup -n %{modname}-%{version}
+sed -i -e '1d' %{modname}.py
 
 %build
 %py2_build
